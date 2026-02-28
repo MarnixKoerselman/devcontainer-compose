@@ -5,7 +5,12 @@ services:
       dockerfile: Dockerfile
     container_name: cpp-devcontainer
     volumes:
-      - ..:/workspace
+      # a) use /workspaces as the root in the container, to create the same directory structure as when a Dockerfile is used (which makes sense)
+      # b) the directory names inside the devcontainer are the same as on the local file system
+      # - ../..:/workspaces
+
+      # ... or: choose a ${containerWorkspaceFolderBasename}, and hard-code the same value in this compose file and in devcontainer.json
+      - ..:/workspaces/myLocalWorkspaceFolderBasename
     # demonstrate connectivity between devcontainer and db container
     command: ping -i 10 db
     environment:

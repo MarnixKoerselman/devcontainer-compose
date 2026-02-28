@@ -1,24 +1,26 @@
 {
-	"name": "C++",
-	"dockerComposeFile": "docker-compose.yml",
-	"service": "cpp-devcontainer",
-	"workspaceFolder": "/workspace",
-	"mounts": [
+  "name": "C++",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "cpp-devcontainer",
+  // see https://containers.dev/implementors/json_reference/#variables-in-devcontainerjson
+  // "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "workspaceFolder": "/workspaces/myLocalWorkspaceFolderBasename",
+  "mounts": [
     // assume a cmake project with 'build' as output directory
-    "type=volume,source=${localWorkspaceFolderBasename}-build,target=/workspace/build"
+    "type=volume,source=build,target=${containerWorkspaceFolder}/build"
   ],
 
-	// Features to add to the dev container. More info: https://containers.dev/features.
-	"features": {
+  // Features to add to the dev container. More info: https://containers.dev/features.
+  "features": {
     // docker cli inside the devcontainer, connected to its host
-		// (here for demo, not practical use, see https://code.visualstudio.com/remote/advancedcontainers/use-docker-kubernetes)
+    // (here for demo, not practical use, see https://code.visualstudio.com/remote/advancedcontainers/use-docker-kubernetes)
     "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
   },
 
-	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "sudo chown vscode build",
+  // Use 'postCreateCommand' to run commands after the container is created.
+  "postCreateCommand": "sudo chown vscode build",
 
-	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-	// "remoteUser": "root"
-	"remoteUser": "vscode"
+  // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+  // "remoteUser": "root"
+  "remoteUser": "vscode"
 }
