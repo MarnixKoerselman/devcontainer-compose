@@ -1,14 +1,17 @@
 services:
-  devcontainer:
-    image: mcr.microsoft.com/devcontainers/cpp:debian-12
+  cpp-devcontainer:
+    build:
+      context: . # same directory as docker-compose.yml and devcontainer.json
+      dockerfile: Dockerfile
     container_name: cpp-devcontainer
     volumes:
-      - ../..:/workspaces
-    command: sleep infinity
+      - ..:/workspace
+    # demonstrate connectivity between devcontainer and db container
+    command: ping -i 10 db
     environment:
       - DEBIAN_FRONTEND=noninteractive
-    # depends_on:
-    #   - db
+    depends_on:
+      - db
 
   db:
     image: postgres:latest
